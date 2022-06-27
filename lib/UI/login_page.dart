@@ -29,7 +29,8 @@ class LoginPage extends StatelessWidget {
             )
           ),
           SizedBox(height: 30,),
-          Text('Create a new account', style:  Theme.of(context).textTheme.headline6,)
+          Text('Create a new account', style:  Theme.of(context).textTheme.headline6,),
+          SizedBox(height: 50,),
         ],
       ),
     );
@@ -58,14 +59,33 @@ class _Loginforms extends StatelessWidget {
             SizedBox(height: 15,),
             TextFormField(
               autocorrect: false,
+              obscureText: true   ,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecorationLogin.getinputDecorationlogin(
-                hintText: 'your password',
+                hintText: '******',
                 labelText: 'Password',
                 prefixIcon: Icons.lock_outline_rounded,
               ),
             ),
             SizedBox(height: 30,),
+
+
+            MaterialButton(
+              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              disabledColor: Colors.grey,
+              elevation: 0,
+              color: Colors.deepPurple,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                child: Text(
+                'Enter', 
+                style: TextStyle(color:  Colors.white),
+                ),
+              ),
+              onPressed: (){}
+            )
+
+
           ],
         )
       ),
