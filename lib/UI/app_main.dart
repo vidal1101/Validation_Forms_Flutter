@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:validation_form/UI/login_page.dart';
+import 'package:validation_form/UI/screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -8,11 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        
-        primarySwatch: Colors.blue,
-      ),
-      home: const LoginPage(key: Key('LoginPage') ),
+      debugShowCheckedModeBanner: false,
+      initialRoute: 'login',
+      routes: {
+        'login': (_)=> const LoginPage( key: Key('login'),),
+        'home' :(_) => HomePage(),
+      },
     );
   }
 }
