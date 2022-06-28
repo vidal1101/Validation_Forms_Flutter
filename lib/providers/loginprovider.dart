@@ -8,8 +8,22 @@ class LoginFormProvider extends ChangeNotifier  {
   String email    = '';
   String password = '';
 
+  bool _isloading = false;
+
+  bool get isloading => _isloading;
+
+  set  isloading (bool value ){
+    this._isloading = value ;
+    notifyListeners();
+  }
+  
+
+
+
+
   /**
-   * 
+   * validar los campos que esten correcto con sus validater y cambiar el estado (true , false) 
+   * al boton parad dar acceso a otra pantalla
    */
   bool isValidateForm (){
     print(formkey.currentState?.validate()??false);

@@ -110,16 +110,31 @@ class _Loginforms extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                 child: Text(
-                'Enter', 
+
+                  loginform.isloading ? 'loading...' : 'Enter', //el loading en false y si esta todo todo bien pasa a true 
                 style: TextStyle(color:  Colors.white),
                 ),
               ),
-              onPressed: (){
 
-
-                loginform.isValidateForm();
-
+              /**
+               * validar que el atributo loading no este cargado. 
+               * para , sino quita el focus y valida la informacion 
+               *cambia la propiedad y damos un ttiempo con el future
+               * para despues enviar a otra pantalla. 
+               */
+              onPressed: loginform.isloading ? null : () async{
                 
+                FocusScope.of(context).unfocus(); //para quitar el teclado al presionar el boton 
+
+                if(!loginform.isValidateForm()) return ;
+
+                loginform.isloading = true ;
+
+                await Future.delayed(Duration(seconds: 3));
+
+                loginform.isloading = false;
+
+                Navigator.pushReplacementNamed(context, 'home');
               }
             )
 
