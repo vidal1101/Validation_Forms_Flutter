@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:validation_form/providers/loginprovider.dart';
 import 'package:validation_form/widgets/constant.dart';
 import 'package:validation_form/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,7 +27,12 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 10,),
                 Text('Login' , style: Theme.of(context).textTheme.headline4 ),
                 SizedBox(height: 20,),
-                _Loginforms(),
+
+                ChangeNotifierProvider(
+                  create: (_)=> LoginFormProvider(),
+                  child: _Loginforms(), 
+                ),
+                
               ],
             )
           ),
@@ -43,8 +50,12 @@ class _Loginforms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final loginform = Provider.of<LoginFormProvider>(context);
+
     return Container(
       child: Form(
+        key: loginform.formkey ,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         // TODO: mantener la  referencia del KEY 
         child: Column(
@@ -58,12 +69,16 @@ class _Loginforms extends StatelessWidget {
                 labelText: 'Email',
                 prefixIcon: Icons.alternate_email_rounded,
               ),
+              onChanged: (email){
+                loginform.email = email;
+
+              },
               validator: (value ){
                 return regExp.hasMatch(value ?? '') ? null  //operador ternario 
                 : 'The email format is not correct';
               },
             ),
-            
+
             SizedBox(height: 15,),
 
             TextFormField(
@@ -75,6 +90,9 @@ class _Loginforms extends StatelessWidget {
                 labelText: 'Password',
                 prefixIcon: Icons.lock_outline_rounded,
               ),
+              onChanged: (pass){
+                 loginform.password = pass;
+              },
               validator: (value ){
                 if(value !=null && value.length >=6) return null;
                 return 'password must 6 characters';
@@ -96,7 +114,13 @@ class _Loginforms extends StatelessWidget {
                 style: TextStyle(color:  Colors.white),
                 ),
               ),
-              onPressed: (){}
+              onPressed: (){
+
+
+                loginform.isValidateForm();
+
+                
+              }
             )
 
 
