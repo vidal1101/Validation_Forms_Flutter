@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:validation_form/widgets/constant.dart';
 import 'package:validation_form/widgets/widgets.dart';
 
 class LoginPage extends StatelessWidget {
@@ -44,9 +45,11 @@ class _Loginforms extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         // TODO: mantener la  referencia del KEY 
         child: Column(
           children: [
+
             TextFormField(
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
@@ -55,8 +58,14 @@ class _Loginforms extends StatelessWidget {
                 labelText: 'Email',
                 prefixIcon: Icons.alternate_email_rounded,
               ),
+              validator: (value ){
+                return regExp.hasMatch(value ?? '') ? null  //operador ternario 
+                : 'The email format is not correct';
+              },
             ),
+            
             SizedBox(height: 15,),
+
             TextFormField(
               autocorrect: false,
               obscureText: true   ,
@@ -66,7 +75,12 @@ class _Loginforms extends StatelessWidget {
                 labelText: 'Password',
                 prefixIcon: Icons.lock_outline_rounded,
               ),
+              validator: (value ){
+                if(value !=null && value.length >=6) return null;
+                return 'password must 6 characters';
+              },
             ),
+
             SizedBox(height: 30,),
 
 
