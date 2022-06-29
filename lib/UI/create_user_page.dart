@@ -165,13 +165,12 @@ class _Loginforms extends StatelessWidget {
 
                     Navigator.pushReplacementNamed(context, 'home') ;
                 }else{
-                  
-                  Navigator.pushReplacementNamed(context, 'createUserNew') ;
+                  print('alerta del usuario');
+                  AlertDialogScreen.alertDialogScreenCustom(
+                    context , 'Passwords do not match' , 'assets/gif/passwordloading.gif'); //alerta de error
+                  //Navigator.pushRelacementNamed(context, 'createUserNew') ;
                 }
 
-                
-
-                
               }
             )
 
@@ -181,4 +180,6 @@ class _Loginforms extends StatelessWidget {
       ),
     );
   }
+
+ 
 }
