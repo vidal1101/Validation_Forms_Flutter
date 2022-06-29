@@ -5,8 +5,9 @@ class LoginFormProvider extends ChangeNotifier  {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
 
-  String email    = '';
-  String password = '';
+  String email    =  '';
+  String password =  '';
+  String password2 = '';
 
   bool _isloading = false;
 
@@ -26,9 +27,18 @@ class LoginFormProvider extends ChangeNotifier  {
    * al boton parad dar acceso a otra pantalla
    */
   bool isValidateForm (){
-    print(formkey.currentState?.validate()??false);
-    print('$password - $email');
+    //print(formkey.currentState?.validate()??false);
+    print('$password - $email - $password2');
     return formkey.currentState?.validate()??false;
   } 
+
+
+  bool isValidatePassword(){
+    if(password == password2){
+      print('$password - $password2');
+      return formkey.currentState?.validate()??false;
+    }
+    return false;
+  }
 
 }

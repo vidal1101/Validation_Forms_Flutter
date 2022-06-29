@@ -4,14 +4,14 @@ import 'package:validation_form/widgets/constant.dart';
 import 'package:validation_form/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class CreateUSerNew extends StatelessWidget {
+  const CreateUSerNew({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackGroundScreen(
-        iconAvatar: Icons.person_pin_circle_sharp,
+        iconAvatar: Icons.person_pin_circle_outlined,
         childbody: childbodycard(context),
         ),
     );
@@ -25,8 +25,9 @@ class LoginPage extends StatelessWidget {
           CardContainer(
             childcard: Column(
               children: [
+
                 SizedBox(height: 10,),
-                Text('Login' , style: Theme.of(context).textTheme.headline4 ),
+                Text('Create USer' , style: Theme.of(context).textTheme.headline4 ),
                 SizedBox(height: 20,),
 
                 ChangeNotifierProvider(
@@ -38,12 +39,14 @@ class LoginPage extends StatelessWidget {
             )
           ),
           SizedBox(height: 30,),
+
           TextButton(
             onPressed: (){
-              Navigator.pushReplacementNamed(context, 'createUserNew');
+              Navigator.pushReplacementNamed(context, 'login');
             },
-            child: Text('Create a new account', style:  Theme.of(context).textTheme.headline6,)
+            child: Text('Do you already have an account?', style:  Theme.of(context).textTheme.headline6,)
           ),
+
           SizedBox(height: 50,),
         ],
       ),
@@ -105,6 +108,27 @@ class _Loginforms extends StatelessWidget {
               },
             ),
 
+
+             SizedBox(height: 15,),
+
+            TextFormField(
+              autocorrect: false,
+              obscureText: true   ,
+              keyboardType: TextInputType.visiblePassword,
+              decoration: InputDecorationLogin.getinputDecorationlogin(
+                hintText: '******',
+                labelText: 'Retype your password',
+                prefixIcon: Icons.lock_outline_rounded,
+              ),
+              onChanged: (pass2){
+                 loginform.password2 = pass2;
+              },
+              validator: (value ){
+                if(value !=null && value.length >=6) return null;
+                return 'password must 6 characters';
+              },
+            ),
+
             SizedBox(height: 30,),
 
 
@@ -117,7 +141,7 @@ class _Loginforms extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                 child: Text(
 
-                  loginform.isloading ? 'loading...' : 'Enter', //el loading en false y si esta todo todo bien pasa a true 
+                  loginform.isloading ? 'loading...' : 'Save', //el loading en false y si esta todo todo bien pasa a true 
                 style: TextStyle(color:  Colors.white),
                 ),
               ),
@@ -132,15 +156,22 @@ class _Loginforms extends StatelessWidget {
                 
                 FocusScope.of(context).unfocus(); //para quitar el teclado al presionar el boton 
 
-                if(!loginform.isValidateForm()) return ;
+                if(loginform.isValidatePassword()){
+                    loginform.isloading = true ;
 
-                loginform.isloading = true ;
+                    await Future.delayed(Duration(seconds: 3));
 
-                await Future.delayed(Duration(seconds: 3));
+                    loginform.isloading = false;
 
-                loginform.isloading = false;
+                    Navigator.pushReplacementNamed(context, 'home') ;
+                }else{
+                  
+                  Navigator.pushReplacementNamed(context, 'createUserNew') ;
+                }
 
-                Navigator.pushReplacementNamed(context, 'home');
+                
+
+                
               }
             )
 

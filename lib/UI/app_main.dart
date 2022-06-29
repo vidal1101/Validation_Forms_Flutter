@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login',
       routes: {
         'login': (_)=> const LoginPage( key: Key('login'),),
+        'createUserNew' : (_)=> const CreateUSerNew( key: Key('CreateUserNew'),),
         'home' :(_) => HomePage(),
       },
     );

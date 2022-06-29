@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class BackGroundScreen extends StatelessWidget {
 
   final Widget childbody ;
+  final IconData iconAvatar;
 
-  const BackGroundScreen({super.key, required this.childbody});
+  const BackGroundScreen({super.key, required this.childbody , required this.iconAvatar});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class BackGroundScreen extends StatelessWidget {
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: 30),
-        child: Icon( Icons.person_pin_circle_sharp, color: Colors.white, size: 100, ),
+        child: Icon( iconAvatar, color: Colors.white, size: 100, ),
       )
     );
   } 
