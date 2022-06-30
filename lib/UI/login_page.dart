@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:validation_form/providers/loginprovider.dart';
+import 'package:validation_form/services/services.dart';
 import 'package:validation_form/widgets/constant.dart';
 import 'package:validation_form/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -130,17 +131,28 @@ class _Loginforms extends StatelessWidget {
                */
               onPressed: loginform.isloading ? null : () async{
                 
-                FocusScope.of(context).unfocus(); //para quitar el teclado al presionar el boton 
-
-                if(!loginform.isValidateForm()) return ;
+                 FocusScope.of(context).unfocus(); //para quitar el teclado al presionar el boton 
+                final authservice = Provider.of<AuthLoginFirebase>(context, listen: false);
 
                 loginform.isloading = true ;
 
-                await Future.delayed(Duration(seconds: 3));
+                final String? answer = await authservice.loginUserFirebase( loginform.email,loginform.password );
+                print('Respuesta    '+answer.toString());
 
-                loginform.isloading = false;
-
-                Navigator.pushReplacementNamed(context, 'home');
+                if(loginform.email.length > 5 && loginform.password.length >= 6){
+                  if(answer == null){ //navego a la pantalla, todo esta bien 
+                    Navigator.pushReplacementNamed(context, 'home') ;
+                  }else{// error con la cuenta de google 
+                    AlertDialogScreen.alertDialogScreenCustom(
+                        context , 'Error Autenticacion' , 'assets/gif/passwordloading.gif');
+                  }
+                }else{
+                  AlertDialogScreen.alertDialogScreenCustom(
+                        context , 'Campos vacios' , 'assets/gif/passwordloading.gif');
+                }
+               
+                loginform.isloading = false;//desbloquear el boton 
+                
               }
             )
 

@@ -42,6 +42,35 @@ class AuthLoginFirebase extends ChangeNotifier{
   }
 
 
+  Future<String?> loginUserFirebase( String email, String password )async{
+
+    final Map<String, dynamic> authDateUser = {
+      'email'     : email,
+      'password'  : password,
+    };
+
+    final urlrequest = Uri.https(_baseUrlFirebase, '/v1/accounts:signInWithPassword' ,{
+      'key': _apitokenProject,
+      }
+    );
+
+    final resp = await http.post(urlrequest , body:  json.encode(authDateUser) );
+
+    final Map<String , dynamic> decodeResponse = json.decode(resp.body);
+
+    print(decodeResponse.toString());
+
+    if( decodeResponse['idToken'] != null ){
+      //si esta la llave  y existe, es guardarla y tood bien
+      //print('todo bien');
+      return null;
+    }else{
+      //es porque el correo ya existe  o algun otro error 
+      return decodeResponse['error']['message'];
+    }
+  }
+
+
 
   
 
