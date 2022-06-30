@@ -100,7 +100,7 @@ class _Loginforms extends StatelessWidget {
                  loginform.password = pass;
               },
               validator: (value ){
-                if(value !=null && value.length >=6) return null;
+                if(value !=null && value.length >=6 && !loginform.isValidatePassword()) return null;
                 return 'password must 6 characters';
               },
             ),

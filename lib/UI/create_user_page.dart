@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:validation_form/providers/loginprovider.dart';
+import 'package:validation_form/services/services.dart';
 import 'package:validation_form/widgets/constant.dart';
 import 'package:validation_form/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class CreateUSerNew extends StatelessWidget {
               children: [
 
                 SizedBox(height: 10,),
-                Text('Create USer' , style: Theme.of(context).textTheme.headline4 ),
+                Text('Create User' , style: Theme.of(context).textTheme.headline4 ),
                 SizedBox(height: 20,),
 
                 ChangeNotifierProvider(
@@ -124,7 +125,7 @@ class _Loginforms extends StatelessWidget {
                  loginform.password2 = pass2;
               },
               validator: (value ){
-                if(value !=null && value.length >=6) return null;
+                if(value !=null && value.length >=6)return null;
                 return 'password must 6 characters';
               },
             ),
@@ -155,15 +156,25 @@ class _Loginforms extends StatelessWidget {
               onPressed: loginform.isloading ? null : () async{
                 
                 FocusScope.of(context).unfocus(); //para quitar el teclado al presionar el boton 
+                final authservice = Provider.of<AuthLoginFirebase>(context, listen: false);
+
+
 
                 if(loginform.isValidatePassword()){
                     loginform.isloading = true ;
 
-                    await Future.delayed(Duration(seconds: 3));
+                    final String? answer = await authservice.createuserFirebase( loginform.email,loginform.password );
+                     print('Respuesta    '+answer.toString());
 
+                    if(answer == null){ //navego a la pantalla, todo esta bien 
+                      Navigator.pushReplacementNamed(context, 'home') ;
+                    }else{// error con la cuenta de google 
+                      AlertDialogScreen.alertDialogScreenCustom(
+                          context , 'EMAIL_EXISTS' , 'assets/gif/passwordloading.gif');
+                    }
+                    
                     loginform.isloading = false;
 
-                    Navigator.pushReplacementNamed(context, 'home') ;
                 }else{
                   print('alerta del usuario');
                   AlertDialogScreen.alertDialogScreenCustom(

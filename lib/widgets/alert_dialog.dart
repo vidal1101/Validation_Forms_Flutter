@@ -8,7 +8,7 @@ class AlertDialogScreen  {
       context: context,
       builder: (ctx) => AlertDialog(
         title:   Text('${title}'),
-        content: Image(image: AssetImage(routeImageCache) , width: 180,  height:180,),
+        content: Image(image: AssetImage(routeImageCache) , width: 210,  height:210,),
         actions: <Widget>[
           Center(
             child: TextButton(
