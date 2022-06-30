@@ -170,7 +170,7 @@ class _Loginforms extends StatelessWidget {
                       Navigator.pushReplacementNamed(context, 'home') ;
                     }else{// error con la cuenta de google 
                       AlertDialogScreen.alertDialogScreenCustom(
-                          context , 'EMAIL_EXISTS' , 'assets/gif/passwordloading.gif');
+                          context , 'Email exists' , 'assets/gif/auth.gif');
                     }
                     
                     loginform.isloading = false;

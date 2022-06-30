@@ -144,11 +144,11 @@ class _Loginforms extends StatelessWidget {
                     Navigator.pushReplacementNamed(context, 'home') ;
                   }else{// error con la cuenta de google 
                     AlertDialogScreen.alertDialogScreenCustom(
-                        context , 'Error Autenticacion' , 'assets/gif/passwordloading.gif');
+                        context , 'Authentication Error' , 'assets/gif/auth.gif');
                   }
                 }else{
                   AlertDialogScreen.alertDialogScreenCustom(
-                        context , 'Campos vacios' , 'assets/gif/passwordloading.gif');
+                        context , 'Empty fields' , 'assets/gif/nullexcep.gif');
                 }
                
                 loginform.isloading = false;//desbloquear el boton 
