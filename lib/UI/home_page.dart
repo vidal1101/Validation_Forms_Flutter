@@ -11,9 +11,17 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products User'),
+        title: const Text('Products User'),
+        actions: [
+          IconButton(
+            onPressed: (){
+               UserSecureStorage.logout('token');
+               Navigator.pushReplacementNamed(context, 'login');
+            } ,
+             icon: Icon(Icons.login_rounded) ),
+        ],
       ),
-      body: Center(
+      body: const  Center(
         child: Text('Hello World'),
      ),
    );
