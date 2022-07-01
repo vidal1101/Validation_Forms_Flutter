@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:validation_form/services/services.dart';
 
 
 class AuthLoginFirebase extends ChangeNotifier{
@@ -34,6 +35,7 @@ class AuthLoginFirebase extends ChangeNotifier{
     if( decodeResponse['idToken'] != null ){
       //si esta la llave  y existe, es guardarla y tood bien
       //print('todo bien');
+      UserSecureStorage.writeValue('token', decodeResponse['idToken'] );
       return null;
     }else{
       //es porque el correo ya existe  o algun otro error 
@@ -63,6 +65,7 @@ class AuthLoginFirebase extends ChangeNotifier{
     if( decodeResponse['idToken'] != null ){
       //si esta la llave  y existe, es guardarla y tood bien
       //print('todo bien');
+      UserSecureStorage.writeValue('token', decodeResponse['idToken'] );
       return null;
     }else{
       //es porque el correo ya existe  o algun otro error 
