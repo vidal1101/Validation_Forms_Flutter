@@ -74,7 +74,9 @@ class AuthLoginFirebase extends ChangeNotifier{
   }
 
 
-
-  
+  //leer si existe un valor con la llave 'token', sino retorna vacio='';
+  Future<String> readTokenAuth()async {
+    return await UserSecureStorage.storage.read(key: 'token') ?? '';
+  }
 
 }

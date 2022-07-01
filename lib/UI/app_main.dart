@@ -17,11 +17,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: mytheme,
         debugShowCheckedModeBanner: false,
-        initialRoute: 'login',
+        initialRoute: 'checkauthscreen',
         routes: {
-          'login': (_)=> const LoginPage( key: Key('login'),),
-          'createUserNew' : (_)=> const CreateUSerNew( key: Key('CreateUserNew'),),
-          'home' :(_) => HomePage(),
+          'checkauthscreen' :(_) => CheckAuthScreen(),
+
+          'login'           : (_)=> const LoginPage( key: Key('login'),),
+          'createUserNew'   : (_)=> const CreateUSerNew( key: Key('CreateUserNew'),),
+
+          'home'            :(_) => HomePage(),
         },
       ),
     );
