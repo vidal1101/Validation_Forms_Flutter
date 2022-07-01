@@ -39,6 +39,11 @@ class UserSecureStorage {
   return;
  }
 
+ static Future<void> saveInformationUser( String email )async{
+  await storage.write(key: 'emailuser', value: email);
+  return ;
+ }
+
   
 
 }

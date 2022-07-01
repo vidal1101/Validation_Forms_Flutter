@@ -21,8 +21,22 @@ class HomePage extends StatelessWidget {
              icon: Icon(Icons.login_rounded) ),
         ],
       ),
-      body: const  Center(
-        child: Text('Hello World'),
+      body:  Center(
+        child: FutureBuilder(
+          future: userservice.readInformationUser(),
+          builder: (BuildContext context , AsyncSnapshot<String> snapshot){
+            if(snapshot.hasData){
+              print(snapshot.data.toString());
+            }
+            return Column(
+              children: [
+                SizedBox(height: 50,),
+                Text('Hello'),
+                Text(snapshot.data.toString().toUpperCase()),
+              ],
+            );
+
+          }),
      ),
    );
   }

@@ -36,6 +36,7 @@ class AuthLoginFirebase extends ChangeNotifier{
       //si esta la llave  y existe, es guardarla y tood bien
       //print('todo bien');
       UserSecureStorage.writeValue('token', decodeResponse['idToken'] );
+      UserSecureStorage.saveInformationUser(decodeResponse['email']);
       return null;
     }else{
       //es porque el correo ya existe  o algun otro error 
@@ -66,6 +67,7 @@ class AuthLoginFirebase extends ChangeNotifier{
       //si esta la llave  y existe, es guardarla y tood bien
       //print('todo bien');
       UserSecureStorage.writeValue('token', decodeResponse['idToken'] );
+      UserSecureStorage.saveInformationUser(decodeResponse['email']);
       return null;
     }else{
       //es porque el correo ya existe  o algun otro error 
@@ -77,6 +79,11 @@ class AuthLoginFirebase extends ChangeNotifier{
   //leer si existe un valor con la llave 'token', sino retorna vacio='';
   Future<String> readTokenAuth()async {
     return await UserSecureStorage.storage.read(key: 'token') ?? '';
+  }
+
+
+  Future<String> readInformationUser ()async{
+    return await UserSecureStorage.storage.read(key: 'emailuser') ?? '';
   }
 
 }
